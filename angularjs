@@ -1,0 +1,194 @@
+<script language="javascript" type="text/javascript">
+
+function retrievealllistitems() {
+var table = document.getElementById('tablename');
+while (table.rows.length > 1)  {
+table.deleteRow(1);
+}
+var query;
+var clientContext;
+var FromDt = $("#idofcnrl").datepicker("getDate");
+var ToDt = $("#idofcnrl").datepicker("getDate");
+if (FromDt == null)  {
+alert('select a dt');
+return;
+}
+if (ToDt == null)  {
+alert('select a dt');
+return;
+}
+if (FromDt != null && ToDt != null)  {
+Datef = FromDt.getFullYear() + "-" + (FromDt.getMonth() + 1) + "-" + FromDt.getDate() + 'T00:00:01Z';
+Datet = ToDt.getFullYear() + "-" + (ToDt.getMonth() + 1) + "-" + ToDt.getDate() + 'T00:00:01Z';
+query = "<View><query><where><And><Geq><FieldRef Name ='Created'/><value Type='DateTime' IncludeTimeValue='FALSE'>" + Datef + "</value></Geq><Leq><FieldRef Name='Created'/><value Type='DateTime' IncludeTimeValue='FALSE'>" + Datet + "</value></Leq></And></where></query></View>";
+}
+clientContext = new SP.ClientContext.get_current();
+var List = clientContext.get_web().get_lists().getByTitle('Listname');
+var camlquery = new SP.CamlQuery();
+camlquery.Set_viewXml(query);
+this.collListItem = List.getItems(camlquery);
+clientContext.load(collListItem, 'Include(listcolname,listcolname1,listcolname2)');
+clientContext.executeQueryAsync(Function.createDelegate(this, this.onQuerySuccess), Function.createDelegate(this, this.onQueryFailed));
+Retrieveotherlistitem();
+}
+
+function onQuerySuccess(sender, args)  {
+var listItemInfo = 
+var listItemEnumerator = collListItem.getEnumerator();
+while (listItemEnumerator.moveNext())  {
+var ListItem = listItemEnumerator.get_current();
+var table = document.getElementById(tablename);
+var row = table.insertRow(1);
+var cell1 = row.insertCell(0);
+cell1.innerHTML = ListItem.get_item('listcolname');
+var cell2 = row.insertCell(1);
+cell2.innerHTML = ListItem.get_item('listcolname1');
+var cell3 = row.insertCell(2);
+cell3.innerHTML = ListItem.get_item('listcolname2');
+}
+function on QueryFailed(sender, args)  {
+alert('Request failed.' + args.get_message() + '\n' + args.get_stackTrace());
+}
+function Retrieveotherlistitem()  {
+var table = document.getElementById(tablename2);
+while (table.row.length > 1)  {
+table.deleteRow(1);
+}
+var query;
+var clientContext;
+var FromDt = $("#idofcnrl").datepicker("getDate");
+var ToDt = $("#idofcnrl").datepicker("getDate");
+if (FromDt != null && ToDt != null)  {
+query = "<View><query><where><And><Geq><FieldRef Name ='Created'/><value Type='DateTime' IncludeTimeValue='FALSE'>" + Datef + "</value></Geq><Leq><FieldRef Name='Created'/><value Type='DateTime' IncludeTimeValue='FALSE'>" + Datet + "</value></Leq></And></where></query></View>";
+}
+clientContext = new SP.ClientContext.get_current();
+var List = clientContext.get_web().get_lists().getByTitle('Listname2');
+var camlquery = new SP.CamlQuery();
+camlquery.Set_viewXml(query);
+this.collListItem2 = List.getItems(camlquery);
+clientContext.load(collListItem2, 'Include(listcolname,listcolname1,listcolname2)');
+clientContext.executeQueryAsync(Function.createDelegate(this, this.onQuerySuccess2), Function.createDelegate(this, this.onQueryFailed2));
+Retrieveanotherlistitem();
+}
+function onQuerySuccess2(sender, args)  {
+var listItemInfo = 
+var listItemEnumerator = collListItem2.getEnumerator();
+while (listItemEnumerator.moveNext())  {
+var ListItem = listItemEnumerator.get_current();
+var table = document.getElementById(tablename2);
+var row = table.insertRow(1);
+var cell1 = row.insertCell(0);
+cell1.innerHTML = ListItem.get_item('listcolname');
+var cell2 = row.insertCell(1);
+cell2.innerHTML = ListItem.get_item('listcolname1');
+var cell3 = row.insertCell(2);
+cell3.innerHTML = ListItem.get_item('listcolname2');
+}
+function on QueryFailed2(sender, args)  {
+alert('Request failed.' + args.get_message() + '\n' + args.get_stackTrace());
+}
+function Retrieveanotherlistitem()  {
+var table = document.getElementById(tablename3);
+while (table.row.length > 1)  {
+table.deleteRow(1);
+}
+var query;
+var clientContext;
+var FromDt = $("#idofcnrl").datepicker("getDate");
+var ToDt = $("#idofcnrl").datepicker("getDate");
+if (FromDt != null && ToDt != null)  {
+query = "<View><query><where><And><Geq><FieldRef Name ='Created'/><value Type='DateTime' IncludeTimeValue='FALSE'>" + Datef + "</value></Geq><Leq><FieldRef Name='Created'/><value Type='DateTime' IncludeTimeValue='FALSE'>" + Datet + "</value></Leq></And></where></query></View>";
+}
+clientContext = new SP.ClientContext.get_current();
+var List = clientContext.get_web().get_lists().getByTitle('Listname3');
+var camlquery = new SP.CamlQuery();
+camlquery.Set_viewXml(query);
+this.collListItem2 = List.getItems(camlquery);
+clientContext.load(collListItem2, 'Include(listcolname,listcolname1,listcolname2)');
+clientContext.executeQueryAsync(Function.createDelegate(this, this.onQuerySuccess3), Function.createDelegate(this, this.onQueryFailed3));
+Retrieveanotherlistitem();
+}
+function onQuerySuccess3(sender, args)  {
+var listItemInfo = 
+var listItemEnumerator = collListItem2.getEnumerator();
+while (listItemEnumerator.moveNext())  {
+var ListItem = listItemEnumerator.get_current();
+var table = document.getElementById(tablename3);
+var row = table.insertRow(1);
+var cell1 = row.insertCell(0);
+cell1.innerHTML = ListItem.get_item('listcolname');
+var cell2 = row.insertCell(1);
+cell2.innerHTML = ListItem.get_item('listcolname1');
+var cell3 = row.insertCell(2);
+cell3.innerHTML = ListItem.get_item('listcolname2');
+}
+function on QueryFailed3(sender, args)  {
+alert('Request failed.' + args.get_message() + '\n' + args.get_stackTrace());
+}
+</script>
+<table id="tablename" border="1">
+<tbody><tr><td>colheading</td><td>col2heading</td><td>col3heading</td></tr>
+</tbody>
+</table>
+<table id="tablename2" border="1">
+<tbody><tr>colheading</td><td>col2heading</td><td>col3heading</td></tr>
+</tbody>
+</table>
+<table id="tablename3" border="1">
+<tbody><tr>colheading</td><td>col2heading</td><td>col3heading</td></tr>
+</tbody>
+</table>
+<input type='button' value='retrieve' onClick="retrievealllistitems();">
+<br/>
+<script language="javascript" type="text/javascript">
+
+function structuretable(i) {
+var str = "";
+str = $('#tablename').html();
+var pushed = '<html>''<table>' + str +'</table>''</html>';
+console.log(pushed);
+return pushed;
+}
+function structuretable2(i) {
+var str = "";
+str = $('#tablename2').html();
+var pushed2 = '<html>''<table>' + str +'</table>''</html>';
+console.log(pushed2);
+return pushed2;
+}
+function structuretable3(i) {
+var str = "";
+str = $('#tablename3').html();
+var pushed3 = '<html>''<table>' + str +'</table>''</html>';
+console.log(pushed3);
+return pushed3;
+}
+function s2a (s)  {
+var buffer = new ArrayBuffer(s.length);
+var view = new Uint8Array(buffer);
+for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+return buffer;
+}
+function generateexcel()  {
+var blob,
+wb = { SheetNames: [], Sheets: {} };
+var ws1 = XLSX.read(structuretable(1), { type: "binary"}).Sheets.Sheet1;
+wb.SheetNames.push("ExcelTab1"); wb.Sheets["ExcelTab1name"] = ws1;
+
+var ws2 = XLSX.read(structuretable2(2), { type: "binary"}).Sheets.Sheet1;
+wb.SheetNames.push("ExcelTab1"); wb.Sheets["ExcelTab1name"] = ws2;
+
+var ws3 = XLSX.read(structuretable3(3), { type: "binary"}).Sheets.Sheet1;
+wb.SheetNames.push("ExcelTab1"); wb.Sheets["ExcelTab1name"] = ws2;
+
+console.log(ws1); console.log(ws2); console.log(ws3);
+blob = new Blob([s2a(XLSX.write(wb, { booktype: 'xlsx', type: 'binary' }))], {
+type: "application/octet-stream"
+});
+
+saveAs(blob, "Reportnme.xlsx");
+}
+</script>
+<input type='button' value='export to excel' onClick="generateexcel();" />
+} 
+}
